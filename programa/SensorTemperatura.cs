@@ -19,9 +19,7 @@ public class SensorTemperatura: Instrumento{
             return temperatura_maxima;
         }
         set{
-            if(value>=0){
-                temperatura_maxima = value;
-            }
+            temperatura_maxima = value;
         }
     }
     public string Unidad_temperatura{

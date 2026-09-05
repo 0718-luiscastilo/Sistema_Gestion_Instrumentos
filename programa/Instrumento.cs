@@ -81,7 +81,7 @@ public class Instrumento{
     int horas_uso, string estado, string fecha_calibracion){
         this.codigo = codigo;
         this.nombre = nombre;
-        this.area_instalación = area_instalacion;
+        this.area_instalacion = area_instalacion;
         this.fabricante = fabricante;
         this.modelo = modelo;
         this.horas_uso = horas_uso;
@@ -98,7 +98,7 @@ public class Instrumento{
         estado = "Activo";
         fecha_calibracion = "";
     }
-    virtual public void MostrarInformacion(){
+    public virtual void MostrarInformacion(){
         Console.WriteLine( "Codigo: " + Codigo);
         Console.WriteLine("Nombre: " + Nombre);
         Console.WriteLine("Area de Instalacion: " + Area_Instalacion);
@@ -108,25 +108,23 @@ public class Instrumento{
         Console.WriteLine("Estado: " + Estado);
         Console.WriteLine("Fecha de Calibracion: " + Fecha_calibracion);
     }
-    public void ActualizarHorasUso(int actualizar_horas){
-        if (actualizar_horas <= 0){
-            Console.WriteLine( "Las Horas  debe ser mayor que 0.");
-        }
-        else if (actualizar_horas < horas_uso){
-            Console.WriteLine("ERROR: no puede ser menor al horas uso actual.");
+    public void ActualizarHorasUso(int horasAgregadas){
+        if (horasAgregadas <= 0){
+            Console.WriteLine("ERROR: Las horas agregadas deben ser mayores que cero.");
         }else{
-            horas_uso += actualizar_horas;
-            Console.WriteLine( "Las horas Uso se actualizaron correctamente.");
+            horasUso += horasAgregadas;
+            Console.WriteLine("Las horas de uso se actualizaron correctamente.");
+            Console.WriteLine("Horas actuales: " + horasUso);
         }
     }
-    public void cambiarEstado(string nuevoEstado){
+    public void CambiarEstado(string nuevoEstado){
         if (string.IsNullOrWhiteSpace(nuevoEstado)){
             Console.WriteLine("ERROR: el estado no puede estar vacío.");
         }else if (nuevoEstado.Equals("Activo", StringComparison.OrdinalIgnoreCase)){
             estado = "Activo";
             Console.WriteLine("Estado actualizado correctamente.");
         }else if (nuevoEstado.Equals("Inactivo", StringComparison.OrdinalIgnoreCase)){
-            estado = "Inactiivo";
+            estado = "Inactivo";
             Console.WriteLine("Estado actualizado correctamente.");
         }else if (nuevoEstado.Equals("En mantenimiento", StringComparison.OrdinalIgnoreCase)){
             estado = "En mantenimiento";
@@ -152,7 +150,7 @@ public class Instrumento{
     public void MostrarEstadoMantenimiento(){
         if(RequiereMantenimiento()){
             Console.WriteLine("El equipo necesita mantenimiento");
-            cambiarEstado("En Mantemiento");
+            CambiarEstado("En mantenimiento");
         }else{
             Console.WriteLine("El equipo esta en operacion");
         }
