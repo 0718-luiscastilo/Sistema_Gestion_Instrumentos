@@ -112,9 +112,9 @@ public class Instrumento{
         if (horasAgregadas <= 0){
             Console.WriteLine("ERROR: Las horas agregadas deben ser mayores que cero.");
         }else{
-            horasUso += horasAgregadas;
+            horas_uso += horasAgregadas;
             Console.WriteLine("Las horas de uso se actualizaron correctamente.");
-            Console.WriteLine("Horas actuales: " + horasUso);
+            Console.WriteLine("Horas actuales: " + horas_uso);
         }
     }
     public void CambiarEstado(string nuevoEstado){
