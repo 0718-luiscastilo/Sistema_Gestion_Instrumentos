@@ -9,22 +9,22 @@ public class Program{
             opcion = Funciones.MostrarMenu();
             switch(opcion){
                 case 1:
-                Console.WriteLine("Registrar sensor de temperatura.");
+                Funciones.RegistrarSensorTemperatura(instrumentos, ref totalInstrumentos, MAX_INSTRUMENTOS);
                 break;
                 case 2:
-                Console.WriteLine("Registrar medidor de presión");
+                Funciones.RegistrarMedidorPresion(instrumentos, ref totalInstrumentos, MAX_INSTRUMENTOS);
                 break;
                 case 3:
-                Console.WriteLine("Mostrar todos los instrumentos");
+                Funciones.MostrarTodosLosInstrumentos(instrumentos, totalInstrumentos);
                 break;
                 case 4:
-                Console.WriteLine("Buscar instrumento por código");
+                Funciones.BuscarInstrumentoPorCodigo(instrumentos, totalInstrumentos);
                 break;
                 case 5:
-                Console.WriteLine("Buscar instrumentos por área");
+                Funciones.BuscarInstrumentosPorArea(instrumentos, totalInstrumentos);
                 break;
                 case 6:
-                Console.WriteLine("Actualizar horas de uso");
+                Funciones.ActualizarHorasDeUso(instrumentos, totalInstrumentos);
                 break;
                 case 7:
                 Console.WriteLine("Cambiar estado");
