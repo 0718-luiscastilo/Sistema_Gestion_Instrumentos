@@ -14,11 +14,10 @@ public class Funciones{
             Console.WriteLine("6. Actualizar horas de uso.");
             Console.WriteLine("7. Cambiar estado");
             Console.WriteLine("8. Calibrar instrumento.");
-            Console.WriteLine("9. Mostrar instrumentos que requieren mantenimiento");
-            Console.WriteLine("10. Mostrar resumen del sistema.");
-            Console.WriteLine("11.- Salir ");
+            Console.WriteLine("9. Mostrar resumen del sistema.");
+            Console.WriteLine("10.- Salir ");
             Console.WriteLine("Seleccione una opcion: ");
-            if (int.TryParse(Console.ReadLine(), out op) && opcion >= 1 && opcion <= 11){
+            if (int.TryParse(Console.ReadLine(), out op) && opcion >= 1 && opcion <= 10){
                 return opcion;
             }
             Console.WriteLine("Error. Debe seleccionar una opcion valida. ");
@@ -277,6 +276,134 @@ public class Funciones{
             Console.WriteLine("No se encontró ningún instrumento con ese código.");
         }
     }
+    public static void CambiarEstado(Instrumento[] instrumentos,int totalInstrumentos){
+        bool encontrado = false;
+        if(totalInstrumentos == 0){
+            Console.WriteLine("No hay instrumentos registrados.");
+            return;
+        }
+        Console.WriteLine("===== CAMBIAR ESTADO DEL INSTRUMENTO =====");
+        Console.Write("Ingrese el código: ");
+        int buscarCodigo;
+        while (!int.TryParse(Console.ReadLine(), out buscarCodigo) || buscarCodigo <= 0){
+            Console.Write("Error. Ingrese un código numérico mayor que 0: ");
+        }
+        for(int i=0;i<totalInstrumentos;i++){
+            if(instrumentos[i] != null && instrumentos[i].Codigo == buscarCodigo){
+                encontrado = true;
+                Console.WriteLine("\n Instrumento encontrado:");
+                instrumentos[i].MostrarInformacion();
+                nuevoEstado = Console.ReadLine()?.Trim() ?? "";
+                while (string.IsNullOrWhiteSpace(nuevoEstado) || (nuevoEstado != "Activo" && nuevoEstado != "Inactivo" && 
+                nuevoEstado != "En mantenimiento" && nuevoEstado != "Fuera de Servicio")){
+                    Console.Write("Estado inválido. Ingrese Activo, Inactivo, En mantenimiento, Fuera de servicio:");
+                    nuevoEstado = Console.ReadLine()?.Trim() ?? "";
+                    }
+                string estadoAnterior = instrumentos[i].Estado;
+                instrumentos[i].CambiarEstado(nuevoEstado);
+                Console.WriteLine("\nEstado actualizado correctamente.\n");
+                Console.WriteLine("Información actualizada:");
+                instrumentos[i].MostrarInformacion();
+                break;
+            }
+        }
+        if(!encontrado){
+            Console.WriteLine("No se encontró ningún instrumento con ese código.");
+        }
+    }
+    public static void CalibrarInstrumento(Instrumento[] instrumentos,int totalInstrumentos){
+        bool encontrado = false;
+        if(totalInstrumentos == 0){
+            Console.WriteLine("No hay instrumentos registrados.");
+            return;
+        }
+        Console.WriteLine("===== CALIBRAR INSTRUMENTO =====");
+        Console.Write("Ingrese el código: ");
+        int buscarCodigo;
+        while (!int.TryParse(Console.ReadLine(), out buscarCodigo) || buscarCodigo <= 0){
+            Console.Write("Error. Ingrese un código numérico mayor que 0: ");
+        }
+        for(int i=0;i<totalInstrumentos;i++){
+            if(instrumentos[i] != null && instrumentos[i].Codigo == buscarCodigo){
+                encontrado = true;
+                Console.WriteLine("\n Instrumento encontrado:");
+                instrumentos[i].MostrarInformacion();
+                if (instrumentos[i] is ICalibrable instrumentoCalibrable){
+                    Console.WriteLine("\n===== RESULTADO DE LA CALIBRACIÓN =====");
+                    instrumentoCalibrable.Calibrar();
+                    Console.WriteLine("\nInstrumento calibrado correctamente.");
+                    Console.WriteLine("\nInformación de calibración:");
+                    instrumentoCalibrable.MostrarInformacionCalibracion();
+                    Console.WriteLine("\nInformación actualizada:");
+                    instrumentos[i].MostrarInformacion();
+                }else{Console.WriteLine("\nEste instrumento no admite calibración.");
+                }
+                break;
+            }
+        }
+        if(!encontrado){
+            Console.WriteLine("No se encontró ningún instrumento con ese código.");
+        }
+    }
+    public static void MostrarEstadisticas(Instrumento[] instrumentos,int totalInstrumentos){
+        if(totalInstrumentos == 0){
+            Console.WriteLine("No hay instrumentos registrados.");
+            return;
+        }
+        Console.WriteLine("===== ESTADÍSTICAS DEL SISTEMA =====");
+        int totalActivos = 0;
+        int totalInactivos = 0;
+        int totalMantenimiento = 0;
+        int totalFueraServicio = 0;
+        double totalHorasUso = 0;
+        int totalSensores = 0;
+        int totalMedidores = 0;
+        int totalRequierenMantenimiento =0;
+        int totalCalibrables = 0;
 
+        for(int i =0; i<totalInstrumentos;i++){
+            totalHorasUso += instrumentos[i].Horas_Uso;
+            double promedio = totalHorasUso / totalInstrumentos;
 
-}
+            if(instrumentos[i].Estado =="Activo"){
+                totalActivos++;
+            }
+            if(instrumentos[i].Estado =="Inactivo"){
+                totalInactivos++;
+            }
+            if(instrumentos[i].Estado =="En mantenimiento"){
+                totalMantenimiento++;
+            }
+            
+            if (instrumentos[i].RequiereMantenimiento()){
+                totalRequierenMantenimiento++;
+            }
+            if(instrumentos[i].Estado =="Fuera de Servicio"){
+                totalFueraServicio++;
+            }
+             if (instrumentos[i] is ICalibrable){
+                totalCalibrables++;
+            }
+            if(instrumentos[i] is SensorTemperatura){
+                totalSensores++;
+            }
+            if(instrumentos[i] is MedidorPresion){
+                totalMedidores++;
+            } 
+        }
+         Console.WriteLine("\n===== RESUMEN GENERAL =====");
+
+    Console.WriteLine($"Total de instrumentos: {totalInstrumentos}");
+    Console.WriteLine($"Total de horas de uso: {totalHorasUso}");
+    Console.WriteLine($"Promedio de horas de uso: {promedio:F2}");
+    Console.WriteLine($"Instrumentos que requieren mantenimiento: {totalRequierenMantenimiento}");
+    Console.WriteLine($"Instrumentos calibrables: {totalCalibrables}");
+    Console.WriteLine($"Sensores de temperatura: {totalSensores}");
+    Console.WriteLine($"Medidores de presión: {totalMedidores}");
+
+    Console.WriteLine("\n===== ESTADÍSTICAS POR ESTADO =====");
+    Console.WriteLine($"Activos: {totalActivos}");
+    Console.WriteLine($"Inactivos: {totalInactivos}");
+    Console.WriteLine($"En Mantenimiento: {totalMantenimiento}");
+    Console.WriteLine($"Fuera de Servicio: {totalFueraServicio}"); 
+    }

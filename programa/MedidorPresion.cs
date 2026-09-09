@@ -56,7 +56,13 @@ public class MedidorPresion: Instrumento{
         Console.WriteLine("Fecha de Calibracion: " + Fecha_calibracion);
         Console.WriteLine( "Presion Maxima: " + Presion_maxima);
         Console.WriteLine("Presion Minima: " + Presion_minima);
-        Console.WriteLine("Unidad : " + Unidad_presion);
-        
+        Console.WriteLine("Unidad : " + Unidad_presion); 
+    }
+    public void Calibrar(){
+        if(Horas_Uso >= 15){
+            Console.WriteLine("El Instrumentos neceita calibracion.");
+        }else{
+            Console.WriteLine("El Instrumentos no neceita calibracion.");
+        }
     }
 }

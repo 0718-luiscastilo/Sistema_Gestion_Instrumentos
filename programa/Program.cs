@@ -22,23 +22,20 @@ public class Program{
                 break;
                 case 5:
                 Funciones.BuscarInstrumentosPorArea(instrumentos, totalInstrumentos);
-                break;
+                break;|
                 case 6:
                 Funciones.ActualizarHorasDeUso(instrumentos, totalInstrumentos);
                 break;
                 case 7:
-                Console.WriteLine("Cambiar estado");
+                Funciones.CambiarEstado(instrumentos, totalInstrumentos);
                 break;
                 case 8:
-                Console.WriteLine("Calibrar instrumento");
+                Funciones.CalibrarInstrumento(instrumentos, totalInstrumentos);
                 break;
                 case 9:
-                Console.WriteLine("Mostrar instrumentos que requieren mantenimiento");
+                Funciones.MostrarEstadisticas(instrumentos, totalInstrumentos);
                 break;
                 case 10:
-                Console.WriteLine("Mostrar resumen del sistema");
-                break;
-                case 11:
                 Console.WriteLine("Gracias por utilizar el Sistema.");
                 break;
                 default:
