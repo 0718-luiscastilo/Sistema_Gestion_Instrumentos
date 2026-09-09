@@ -234,7 +234,6 @@ public class Funciones{
             Console.Write("Error. El area de Instalacion no puede estar vacía. Intente nuevamente: ");
             string area = Console.ReadLine() ?? "";
         }
-        areaBuscada = areaBuscada.Trim();
         for(int i=0;i<totalInstrumentos;i++){
             if (instrumentos[i] != null && instrumentos[i].Area_Instalacion.Equals(areaBuscada, StringComparison.OrdinalIgnoreCase)){
                 encontrado = true;
@@ -293,7 +292,7 @@ public class Funciones{
                 encontrado = true;
                 Console.WriteLine("\n Instrumento encontrado:");
                 instrumentos[i].MostrarInformacion();
-                nuevoEstado = Console.ReadLine()?.Trim() ?? "";
+                nuevoEstado = Console.ReadLine();
                 while (string.IsNullOrWhiteSpace(nuevoEstado) || (nuevoEstado != "Activo" && nuevoEstado != "Inactivo" && 
                 nuevoEstado != "En mantenimiento" && nuevoEstado != "Fuera de Servicio")){
                     Console.Write("Estado inválido. Ingrese Activo, Inactivo, En mantenimiento, Fuera de servicio:");
@@ -407,3 +406,4 @@ public class Funciones{
     Console.WriteLine($"En Mantenimiento: {totalMantenimiento}");
     Console.WriteLine($"Fuera de Servicio: {totalFueraServicio}"); 
     }
+}

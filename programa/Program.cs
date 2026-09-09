@@ -22,7 +22,7 @@ public class Program{
                 break;
                 case 5:
                 Funciones.BuscarInstrumentosPorArea(instrumentos, totalInstrumentos);
-                break;|
+                break;
                 case 6:
                 Funciones.ActualizarHorasDeUso(instrumentos, totalInstrumentos);
                 break;
@@ -42,7 +42,7 @@ public class Program{
                 Console.WriteLine("Opción no reconocida.");
                 break;
             }
-        }while(opcion != 11);
+        }while(opcion != 10);
         
     }
 }
