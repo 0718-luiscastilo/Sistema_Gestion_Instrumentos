@@ -17,7 +17,7 @@ public class Funciones{
             Console.WriteLine("9. Mostrar resumen del sistema.");
             Console.WriteLine("10.- Salir ");
             Console.WriteLine("Seleccione una opcion: ");
-            if (int.TryParse(Console.ReadLine(), out op) && opcion >= 1 && opcion <= 10){
+            if (int.TryParse(Console.ReadLine(), out opcion) && opcion >= 1 && opcion <= 10){
                 return opcion;
             }
             Console.WriteLine("Error. Debe seleccionar una opcion valida. ");
@@ -114,28 +114,28 @@ public class Funciones{
         string nombre = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(nombre)){
             Console.Write("Error. El nombre no puede estar vacío. Intente nuevamente: ");
-            string nombre = Console.ReadLine() ?? "";
+            nombre = Console.ReadLine() ?? "";
         }
         nombre = nombre.Trim();
         Console.WriteLine(" Ingrese Area de Instalacion: ");
         string areaInstalacion = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(areaInstalacion)){
             Console.Write("Error. El Area de Instalacion no puede estar vacío. Intente nuevamente: ");
-            string areaInstalacion = Console.ReadLine() ?? "";
+            areaInstalacion = Console.ReadLine() ?? "";
         }
         areaInstalacion = areaInstalacion.Trim();
         Console.WriteLine(" Ingrese el Fabricante: ");
         string fabricante = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(fabricante)){
             Console.Write("Error. El Fabricante no puede estar vacío. Intente nuevamente: ");
-            string fabricante = Console.ReadLine() ?? "";
+            fabricante = Console.ReadLine() ?? "";
         }
         fabricante = fabricante.Trim();
         Console.WriteLine(" Ingrese modelo: ");
         string modelo = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(modelo)){
             Console.Write("Error. El modelo no puede estar vacío. Intente nuevamente: ");
-            string modelo = Console.ReadLine() ?? "";
+            modelo = Console.ReadLine() ?? "";
         }
         modelo = modelo.Trim();
         Console.WriteLine(" Ingrese las horas de Uso: ");
@@ -147,14 +147,14 @@ public class Funciones{
         string estado = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(estado)){
             Console.Write("Error. El estado no puede estar vacío. Intente nuevamente: ");
-            string estado = Console.ReadLine() ?? "";
+            estado = Console.ReadLine() ?? "";
         }
         estado = estado.Trim();
         Console.WriteLine(" Ingrese la Fecha de Calibracion: ");
         string fechaCalibracion = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(fechaCalibracion)){
             Console.Write("Error. La fecha de Calibracion no puede estar vacío. Intente nuevamente: ");
-            string fechaCalibracion = Console.ReadLine() ?? "";
+            fechaCalibracion = Console.ReadLine() ?? "";
         }
         fechaCalibracion = fechaCalibracion.Trim();
 
@@ -174,7 +174,7 @@ public class Funciones{
         string unidadPresion = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(unidadPresion)){
             Console.Write("Error. La unidad de presion no puede estar vacío. Intente nuevamente: ");
-            unidadPresion = Console.ReadLine();
+            unidadPresion = Console.ReadLine() ?? "";
         }
         unidadPresion = unidadPresion.Trim();
 
@@ -229,10 +229,10 @@ public class Funciones{
         }
         Console.WriteLine("===== BUSCAR INSTRUMENTO POR AREA =====");
         Console.WriteLine("Ingrese la Area de Instalacion: ");
-        string area = Console.ReadLine() ?? "";
-        while (string.IsNullOrWhiteSpace(area)){
+        string areaBuscada = Console.ReadLine() ?? "";
+        while (string.IsNullOrWhiteSpace(areaBuscada)){
             Console.Write("Error. El area de Instalacion no puede estar vacía. Intente nuevamente: ");
-            string area = Console.ReadLine() ?? "";
+            areaBuscada = Console.ReadLine() ?? "";
         }
         for(int i=0;i<totalInstrumentos;i++){
             if (instrumentos[i] != null && instrumentos[i].Area_Instalacion.Equals(areaBuscada, StringComparison.OrdinalIgnoreCase)){
@@ -260,8 +260,8 @@ public class Funciones{
             if(instrumentos[i] != null && instrumentos[i].Codigo == buscarCodigo){
                 encontrado = true;
                 Console.WriteLine("Ingrese las horas adicionales de uso: ");
-                double horasAdicionales;
-                while (!double.TryParse(Console.ReadLine(), out horasAdicionales) || horasAdicionales <= 0){
+                int horasAdicionales;
+                while (!int.TryParse(Console.ReadLine(), out horasAdicionales) || horasAdicionales <= 0){
                 Console.Write("Error. Ingrese un valor numérico mayor que 0: ");
                 }
                 instrumentos[i].ActualizarHorasUso(horasAdicionales);
@@ -292,7 +292,8 @@ public class Funciones{
                 encontrado = true;
                 Console.WriteLine("\n Instrumento encontrado:");
                 instrumentos[i].MostrarInformacion();
-                nuevoEstado = Console.ReadLine();
+                Console.WriteLine("\n Ingrese el nuevo estado:");
+                string nuevoEstado = Console.ReadLine() ?? "";
                 while (string.IsNullOrWhiteSpace(nuevoEstado) || (nuevoEstado != "Activo" && nuevoEstado != "Inactivo" && 
                 nuevoEstado != "En mantenimiento" && nuevoEstado != "Fuera de Servicio")){
                     Console.Write("Estado inválido. Ingrese Activo, Inactivo, En mantenimiento, Fuera de servicio:");
@@ -362,8 +363,7 @@ public class Funciones{
 
         for(int i =0; i<totalInstrumentos;i++){
             totalHorasUso += instrumentos[i].Horas_Uso;
-            double promedio = totalHorasUso / totalInstrumentos;
-
+        
             if(instrumentos[i].Estado =="Activo"){
                 totalActivos++;
             }
@@ -390,6 +390,7 @@ public class Funciones{
                 totalMedidores++;
             } 
         }
+        double promedio = totalHorasUso / totalInstrumentos;
          Console.WriteLine("\n===== RESUMEN GENERAL =====");
 
     Console.WriteLine($"Total de instrumentos: {totalInstrumentos}");
