@@ -1,0 +1,285 @@
+## 1. Título del ejercicio
+
+**Sistema de Gestión de Mantenimiento y Calibración de Instrumentos Industriales**
+
+## 2. Descripción del problema
+
+Una empresa de automatización industrial necesita un sistema para administrar los instrumentos utilizados en sus procesos de producción. Actualmente, el personal registra manualmente información sobre sensores, medidores y equipos de calibración, lo que dificulta conocer su estado, controlar las horas de uso y programar revisiones.
+
+Tu tarea es desarrollar una aplicación de consola en **C#** que permita registrar instrumentos, consultar su información, actualizar sus horas de uso y determinar cuáles requieren mantenimiento o calibración.
+
+El sistema deberá utilizar **Programación Orientada a Objetos**, incluyendo una clase base para los instrumentos y clases derivadas para representar diferentes tipos de equipos.
+
+El programa debe permitir trabajar con instrumentos como:
+
+* Sensores de temperatura.
+* Medidores de presión.
+* Equipos de calibración.
+
+Cada tipo de instrumento tendrá características generales y propiedades específicas.
+
+## 3. Requisitos funcionales
+
+### A. Clase base `Instrumento`
+
+Crea una clase que represente un instrumento industrial.
+
+Debe contener:
+
+* Código.
+* Nombre.
+* Área de instalación.
+* Fabricante.
+* Modelo.
+* Horas de uso.
+* Estado.
+* Fecha de última calibración.
+
+La clase debe incluir:
+
+* Constructor por defecto.
+* Constructor con parámetros.
+* Propiedades `get` y `set`.
+* Métodos para mostrar información.
+* Método para actualizar horas de uso.
+* Método para cambiar el estado.
+* Método para determinar si requiere mantenimiento.
+
+### B. Clases derivadas
+
+Crea al menos **dos clases derivadas** de `Instrumento`.
+
+Cada una debe tener características propias.
+
+Por ejemplo:
+
+**SensorTemperatura**
+
+* Rango mínimo.
+* Rango máximo.
+* Unidad de medida.
+
+**MedidorPresion**
+
+* Presión máxima.
+* Unidad de medida.
+* Tipo de conexión.
+
+Cada clase debe implementar su propia forma de mostrar información.
+
+### C. Interfaz
+
+Crea una interfaz llamada `ICalibrable`.
+
+Debe definir las operaciones necesarias para que un instrumento pueda ser calibrado.
+
+Los instrumentos que implementen esta interfaz deberán poder:
+
+* Registrar una calibración.
+* Consultar si necesitan calibración.
+
+### D. Registro de instrumentos
+
+El programa debe permitir registrar instrumentos mediante un menú.
+
+Cada registro debe solicitar la información general y específica correspondiente al tipo de instrumento.
+
+El sistema debe impedir registrar dos instrumentos con el mismo código.
+
+### E. Arreglo de objetos
+
+Utiliza un arreglo de objetos para almacenar los instrumentos registrados.
+
+El arreglo debe permitir trabajar con diferentes tipos de instrumentos mediante una referencia común.
+
+El sistema debe mostrar la información de cada instrumento utilizando polimorfismo.
+
+### F. Menú principal
+
+El programa debe mostrar un menú con opciones similares a las siguientes:
+
+```text
+========================================
+ SISTEMA DE GESTIÓN DE INSTRUMENTOS
+========================================
+
+1. Registrar sensor de temperatura
+2. Registrar medidor de presión
+3. Mostrar todos los instrumentos
+4. Buscar instrumento por código
+5. Buscar instrumentos por área
+6. Actualizar horas de uso
+7. Cambiar estado
+8. Calibrar instrumento
+9. Mostrar instrumentos que requieren mantenimiento
+10. Mostrar resumen del sistema
+11. Salir
+```
+
+### G. Búsqueda por código
+
+Permite localizar un instrumento mediante su código.
+
+Si existe, muestra toda su información.
+
+Si no existe, debe mostrar un mensaje indicando que no fue encontrado.
+
+### H. Búsqueda por área
+
+Permite mostrar todos los instrumentos pertenecientes a un área determinada.
+
+Ejemplos:
+
+* Producción.
+* Mantenimiento.
+* Calidad.
+* Laboratorio.
+
+### I. Actualización de horas de uso
+
+Permite seleccionar un instrumento mediante su código y agregar horas de uso.
+
+El sistema debe validar que las horas introducidas sean válidas.
+
+### J. Cambio de estado
+
+Permite cambiar el estado de un instrumento.
+
+Estados permitidos:
+
+* Activo.
+* Mantenimiento.
+* Inactivo.
+
+### K. Calibración
+
+Permite seleccionar un instrumento y registrar una nueva calibración.
+
+Al realizar una calibración, el sistema debe actualizar la información correspondiente.
+
+### L. Mantenimiento automático
+
+El sistema debe utilizar un límite configurable de horas de uso.
+
+Cuando un instrumento alcance o supere ese límite, deberá identificarse como candidato a mantenimiento.
+
+### M. Resumen del sistema
+
+El programa debe mostrar estadísticas como:
+
+* Total de instrumentos registrados.
+* Cantidad de sensores de temperatura.
+* Cantidad de medidores de presión.
+* Cantidad de instrumentos activos.
+* Cantidad de instrumentos en mantenimiento.
+* Total de horas de uso.
+* Instrumento con mayor uso.
+* Cantidad de instrumentos que requieren mantenimiento.
+
+## 4. Restricciones
+
+* Utiliza **C#**.
+* El programa debe ser de consola.
+* Utiliza clases y objetos.
+* Utiliza encapsulación mediante propiedades.
+* Utiliza herencia.
+* Utiliza polimorfismo.
+* Utiliza una interfaz.
+* Utiliza constructores sobrecargados.
+* Utiliza sobrecarga de métodos.
+* Utiliza un arreglo de objetos.
+* Utiliza `for`, `while`, `if...else`, `break` y `continue`.
+* Utiliza tipos de datos adecuados.
+* Utiliza métodos para organizar el programa.
+* Utiliza un constructor finalizador (`destructor`) en al menos una clase.
+* No utilices bases de datos.
+* No utilices interfaces gráficas.
+* No utilices librerías externas.
+* No utilices `List<T>`; trabaja con arreglos básicos.
+* El programa debe validar entradas numéricas y evitar códigos duplicados.
+
+## 5. Ejemplo de entrada/salida
+
+### Registro de un instrumento
+
+```text
+========================================
+ SISTEMA DE GESTIÓN DE INSTRUMENTOS
+========================================
+
+1. Registrar sensor de temperatura
+2. Registrar medidor de presión
+3. Mostrar todos los instrumentos
+4. Buscar instrumento por código
+5. Buscar instrumentos por área
+6. Actualizar horas de uso
+7. Cambiar estado
+8. Calibrar instrumento
+9. Mostrar instrumentos que requieren mantenimiento
+10. Mostrar resumen del sistema
+11. Salir
+
+Seleccione una opción: 1
+
+Código: ST-001
+Nombre: Sensor de temperatura del horno
+Área: Producción
+Fabricante: Siemens
+Modelo: SITRANS-T
+Horas de uso: 450
+Estado: Activo
+Fecha de última calibración: 2026-01-15
+Rango mínimo: -20
+Rango máximo: 150
+Unidad de medida: °C
+
+Sensor registrado correctamente.
+```
+
+### Consulta de instrumentos
+
+```text
+========================================
+ INSTRUMENTOS REGISTRADOS
+========================================
+
+Código: ST-001
+Nombre: Sensor de temperatura del horno
+Área: Producción
+Fabricante: Siemens
+Modelo: SITRANS-T
+Horas de uso: 450
+Estado: Activo
+Fecha de última calibración: 2026-01-15
+Rango: -20 °C a 150 °C
+
+Código: MP-002
+Nombre: Medidor de presión hidráulica
+Área: Mantenimiento
+Fabricante: WIKA
+Modelo: A-10
+Horas de uso: 720
+Estado: Mantenimiento
+Presión máxima: 250 bar
+Unidad de medida: bar
+```
+
+### Resumen del sistema
+
+```text
+========================================
+ RESUMEN DEL SISTEMA
+========================================
+
+Total de instrumentos: 5
+Sensores de temperatura: 3
+Medidores de presión: 2
+Instrumentos activos: 3
+Instrumentos en mantenimiento: 1
+Instrumentos inactivos: 1
+Total de horas de uso: 2850
+Instrumento con mayor uso: MP-002
+Instrumentos que requieren mantenimiento: 2
+```
+
+**Objetivo final:** desarrollar un sistema que integre todos los conceptos estudiados en C# dentro de una aplicación realista de automatización industrial, utilizando una estructura organizada y aplicando POO de manera correcta.
