@@ -3,9 +3,9 @@ public class Funciones{
     public static int MostrarMenu(){
         int opcion;
         do{
+            Console.Clear();
             Console.WriteLine("========================================");
             Console.WriteLine("===== SISTEMA DE GESTIÓN DE INSTRUMENTOS =====");
-            Console.ReadKey();
             Console.WriteLine("1. Registrar sensor de temperatura.");
             Console.WriteLine("2. Registrar medidor de presión.");
             Console.WriteLine("3. Mostrar todos los instrumentos.");
@@ -35,25 +35,25 @@ public class Funciones{
             Console.Write("Error. Ingrese un valor numérico mayor que 0: ");
         }
         Console.WriteLine(" Ingrese el Nombre: ");
-        string nombre = Console.ReadLine();
+        string nombre = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(nombre)){
             Console.Write("Error. El nombre no puede estar vacío. Intente nuevamente: ");
             nombre = Console.ReadLine();
         }
         Console.WriteLine(" Ingrese Area de Instalacion: ");
-        string areaInstalacion = Console.ReadLine();
+        string areaInstalacion = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(areaInstalacion)){
             Console.Write("Error. El Area de Instalacion no puede estar vacío. Intente nuevamente: ");
             areaInstalacion = Console.ReadLine();
         }
         Console.WriteLine(" Ingrese el Fabricante: ");
-        string fabricante = Console.ReadLine();
+        string fabricante = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(fabricante)){
             Console.Write("Error. El Fabricante no puede estar vacío. Intente nuevamente: ");
             fabricante = Console.ReadLine();
         }
         Console.WriteLine(" Ingrese modelo: ");
-        string modelo = Console.ReadLine();
+        string modelo = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(modelo)){
             Console.Write("Error. El modelo no puede estar vacío. Intente nuevamente: ");
             modelo = Console.ReadLine();
@@ -61,16 +61,16 @@ public class Funciones{
         Console.WriteLine(" Ingrese las horas de Uso: ");
         int horasUso;
         while (!int.TryParse(Console.ReadLine(), out horasUso) || horasUso < 0){
-            Console.Write("Error. Ingrese un valor numérico mayor que 0: ");
+            Console.Write("Error. Las horas de uso no pueden ser negativas. Intente nuevamente: ");
         }
         Console.WriteLine(" Ingrese el Estado: ");
-        string estado = Console.ReadLine();
+        string estado = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(estado)){
             Console.Write("Error. El estado no puede estar vacío. Intente nuevamente: ");
             estado = Console.ReadLine();
         }
         Console.WriteLine(" Ingrese la Fecha de Calibracion: ");
-        string fechaCalibracion = Console.ReadLine();
+        string fechaCalibracion = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(fechaCalibracion)){
             Console.Write("Error. La fecha de Calibracion no puede estar vacío. Intente nuevamente: ");
             fechaCalibracion = Console.ReadLine();
@@ -88,10 +88,10 @@ public class Funciones{
         }
         
         Console.WriteLine(" Ingrese la Unidad de Temperatura: ");
-        string unidadTemp = Console.ReadLine();
+        string unidadTemp = Console.ReadLine() ?? "";
         while (string.IsNullOrWhiteSpace(unidadTemp)){
-            Console.Write("Error. La fecha de Calibracion no puede estar vacío. Intente nuevamente: ");
-            unidadTemp = Console.ReadLine();
+            Console.Write("Error. La unidad de temperatura no puede estar vacía. Intente nuevamente: ");
+            unidadTemp = Console.ReadLine() ?? "";
         }
 
         Instrumento i = new SensorTemperatura(codigo,nombre,areaInstalacion,fabricante,modelo,horasUso,
@@ -295,11 +295,10 @@ public class Funciones{
                 Console.WriteLine("\n Ingrese el nuevo estado:");
                 string nuevoEstado = Console.ReadLine() ?? "";
                 while (string.IsNullOrWhiteSpace(nuevoEstado) || (nuevoEstado != "Activo" && nuevoEstado != "Inactivo" && 
-                nuevoEstado != "En mantenimiento" && nuevoEstado != "Fuera de Servicio")){
-                    Console.Write("Estado inválido. Ingrese Activo, Inactivo, En mantenimiento, Fuera de servicio:");
+                nuevoEstado != "En Mantenimiento" && nuevoEstado != "Fuera de Servicio")){
+                    Console.Write("Estado inválido. Ingrese Activo, Inactivo, En Mantenimiento, Fuera de servicio:");
                     nuevoEstado = Console.ReadLine()?.Trim() ?? "";
                     }
-                string estadoAnterior = instrumentos[i].Estado;
                 instrumentos[i].CambiarEstado(nuevoEstado);
                 Console.WriteLine("\nEstado actualizado correctamente.\n");
                 Console.WriteLine("Información actualizada:");
@@ -370,7 +369,7 @@ public class Funciones{
             if(instrumentos[i].Estado =="Inactivo"){
                 totalInactivos++;
             }
-            if(instrumentos[i].Estado =="En mantenimiento"){
+            if(instrumentos[i].Estado =="En Mantenimiento"){
                 totalMantenimiento++;
             }
             
